@@ -8,6 +8,14 @@
         }
       }
     },
-    "tee": {}
+    "tee": {},
+    "publication": {
+      "title": {
+        "config": {
+          "patternType": "HEADING",
+          "blocks": 1
+        }
+      }
+    }
   }
 }

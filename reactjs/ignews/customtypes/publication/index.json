@@ -1,10 +1,10 @@
 {
-  "id": "id",
-  "label": "Post",
+  "id": "publication",
+  "label": "publication",
   "repeatable": true,
   "status": true,
   "json": {
-    "post": {
+    "Main": {
       "uid": {
         "type": "UID",
         "config": {
@@ -15,19 +15,17 @@
       "title": {
         "type": "StructuredText",
         "config": {
-          "label": "Title",
+          "label": "title",
           "placeholder": "",
           "allowTargetBlank": true,
           "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       },
       "content": {
-        "type": "StructuredText",
+        "type": "Text",
         "config": {
-          "label": "Content",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          "label": "content",
+          "placeholder": ""
         }
       }
     }
