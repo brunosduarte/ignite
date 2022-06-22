@@ -10,7 +10,7 @@ import { RiSearchLine } from "react-icons/ri";
 export function SearchBox() {
     //const  [search, setSearch] = useState('');
 
-    const searchInputRef = useRef<HTMLInputElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>('');
 
     console.log(searchInputRef.current.value);
 
