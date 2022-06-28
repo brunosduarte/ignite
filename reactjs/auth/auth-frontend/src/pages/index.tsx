@@ -1,6 +1,10 @@
+import { GetServerSideProps } from "next";
 import { FormEvent, useContext, useState } from "react";
+import { parseCookies } from "nookies";
+
 import { AuthContext } from "../contexts/AuthContext";
 import styles from '../styles/Home.module.css';
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -21,9 +25,16 @@ export default function Home() {
   
   return (
       <form onSubmit={handleSubmit} className={styles.container}>
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <input type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="true" />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="true" />
         <button type="submit">Entrar</button>
       </form>
   );
 }
+
+
+export const getServerSideProps = withSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+});
