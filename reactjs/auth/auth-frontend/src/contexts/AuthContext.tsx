@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import Router from "next/router";
 
-import { api } from "../services/api";
+import { api } from "../services/apiClient";
 
 type User = {
     email: string;
@@ -44,9 +44,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if(token){
             api.get('/me')
             .then(response => {
-                const { email, permissions, roles } = response.data;
+                const { email, permissions, roles } = response.data
 
-                setUser({ email, permissions, roles });
+                setUser({ email, permissions, roles })
             })
             .catch(() => {
                 signOut();
@@ -82,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             Router.push('/dashboard')
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
 
