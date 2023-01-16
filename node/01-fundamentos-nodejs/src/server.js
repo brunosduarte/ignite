@@ -1,52 +1,29 @@
 import http from 'node:http'
+import { json } from './middlewares/json.js'
+import { routes } from './routes.js'
+import { extractQueryParams } from './utils/extract-query-params.js'
 
-// - Criar usuários
-// - Listagem usuários
-// - Edição de usuários
-// - Remoção de usuários
-
-// - HTTP
-//   - Método HTTP
-//   - URL
-
-// GET, POST, PUT, PATCH, DELETE
-
-// GET =>
-// POST =>
-// PUT =>
-// PATCH =>
-// DELETE =>
-
-// GET /users =>
-// POST /users =>
-
-// Stateful - Stateless
-
-// Cabeçalhos (Req, Res) => Metadados
-
-const users = []
-
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const { method, url } = req
 
-  if (method === 'GET' && url === '/users') {
-    return res
-    .setHeader('Content-Type', 'application/json')
+  await json(req, res)
 
-    .end(JSON.stringify(users))
+  const route = routes.find(route => {
+    return route.method === method && route.path.test(url)
+  })
+
+  if (route) {
+    const routeParams = req.url.match(route.path)
+
+    const { query, ...params } = routeParams.groups
+
+    req.params = params
+    req.query = query ? extractQueryParams(query) : {}
+
+    return route.handler(req, res)
   }
 
-  if (method === 'POST' && url === '/users') {
-    users.push({
-      id: 1,
-      name: 'John Doe',
-      email: 'john@doe',
-    })
-
-    return res.writeEad(201).end('Criação de usuário')
-  }
-
-  return res.end('Hello World')
+  return res.writeHead(404).end()
 })
 
 server.listen(3333)
